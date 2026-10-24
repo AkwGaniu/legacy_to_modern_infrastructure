@@ -9,12 +9,13 @@ const vpcStack = new LegacyToModernInfrastructureStack(app, 'LegacyToModernInfra
   env: { account: process.env.CDK_DEFAULT_ACCOUNT, region: process.env.CDK_DEFAULT_REGION },
 });
 
-new Ec2Stack(app, 'Ec2Stack', {
+const ec2Stack = new Ec2Stack(app, 'Ec2Stack', {
   vpc: vpcStack.vpc,
   env: { account: process.env.CDK_DEFAULT_ACCOUNT, region: process.env.CDK_DEFAULT_REGION },
 });
 
 new DbStack(app, 'DbStack', {
   vpc: vpcStack.vpc,
+  appSecurityGroup: ec2Stack.instanceSecurityGroup,
   env: { account: process.env.CDK_DEFAULT_ACCOUNT, region: process.env.CDK_DEFAULT_REGION },
 });

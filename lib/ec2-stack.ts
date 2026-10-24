@@ -7,6 +7,7 @@ interface Ec2Props extends cdk.StackProps {
 }
 
 export class Ec2Stack extends cdk.Stack {
+  public readonly instanceSecurityGroup: ec2.ISecurityGroup;
   constructor(scope: Construct, id: string, props: Ec2Props) {
     super(scope, id, props);
 
@@ -18,7 +19,10 @@ export class Ec2Stack extends cdk.Stack {
       machineImage: new ec2.AmazonLinuxImage({
         generation: ec2.AmazonLinuxGeneration.AMAZON_LINUX_2,
       }),
+      ssmSessionPermissions: true, // Enable SSM Session Manager
     });
+
+    this.instanceSecurityGroup = publicInstance.connections.securityGroups[0];
   
     cdk.Tags.of(publicInstance).add('Name', 'PublicInstance');
   }

@@ -67,3 +67,5 @@ npx cdk destroy --all
 ```
 
 Check for retained RDS snapshots and other remaining resources after teardown. Recreating the stacks creates a new database; it does not automatically restore the previous database’s data.
+
+**Write-up:** [How I Built Reproducible Infrastructure on AWS, and What Broke](https://medium.com/@ganiu.akowanu/how-i-built-reproducible-infrastructure-on-aws-and-what-broke-d8120b7e2008?sharedUserId=ganiu.akowanu)
